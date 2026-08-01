@@ -1,0 +1,17 @@
+# dependencias
+node_modules/
+
+# build
+dist/
+
+# masters de video y logos originales: 575 MB que no se publican.
+# Los archivos que usa el sitio viven en public/videos, public/posters y public/logos.
+media-originals/
+
+# capturas del template anterior
+preview-*.png
+
+# sistema y editor
+.DS_Store
+*.local
+.vite/
