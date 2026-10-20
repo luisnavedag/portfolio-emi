@@ -1,47 +1,51 @@
-import { about, tcOf } from '../data/site'
+import { about } from '../data/site'
 import Reveal from './Reveal'
-import SectionHeader from './SectionHeader'
+import { Flower } from './Icons'
 
 export default function About() {
   return (
-    <section
-      id="sobre-mi"
-      className="scroll-mt-24 border-t border-bone/10 px-5 py-20 sm:px-8 sm:py-28"
-    >
-      <div className="mx-auto max-w-[1180px]">
-        <SectionHeader
-          tc={tcOf('sobre-mi')}
-          label="Sobre mí"
-          title={about.title}
-          lead={about.lead}
-        />
-
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-16">
+    <section id="sobre-mi" className="hola scroll-mt-11">
+      <div className="mx-auto grid max-w-[1500px] items-end gap-6 px-5 pt-20 sm:px-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:gap-10 lg:pt-28">
+        <div className="pb-4 lg:pb-24">
           <Reveal>
-            <div className="mx-auto w-full max-w-[260px] overflow-hidden rounded-full border border-bone/12 bg-plum sm:max-w-[300px] lg:mx-0">
-              <img
-                src={about.photo}
-                alt="Emiberth Garcia"
-                className="block w-full object-cover"
-                style={{ aspectRatio: '1 / 1' }}
-                loading="lazy"
-              />
-            </div>
+            <h2>
+              <span className="block font-display text-[clamp(4.2rem,12.5vw,10rem)] leading-[0.9] text-bone">
+                {about.greeting}
+              </span>
+              <span className="mt-1 block text-[clamp(2rem,5.6vw,4.6rem)] leading-[1.05] font-normal text-bone">
+                {about.name}
+              </span>
+            </h2>
           </Reveal>
 
-          <Reveal delay={90}>
-            <div className="max-w-2xl">
-              {about.paragraphs.map((paragraph, i) => (
-                <p
-                  key={paragraph}
-                  className={`text-[16px] leading-relaxed text-bone/70 ${i > 0 ? 'mt-6' : ''}`}
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </Reveal>
+          <ul className="mt-10 space-y-4 sm:mt-14">
+            {about.bullets.map((segments, i) => (
+              <li key={i}>
+                <Reveal delay={i * 90}>
+                  <div className="flex items-center gap-5 rounded-[2.2rem] bg-wine px-6 py-5 sm:gap-8 sm:rounded-[3rem] sm:px-10 sm:py-7">
+                    <Flower className="h-9 w-9 shrink-0 text-bone sm:h-12 sm:w-12" />
+                    <p className="text-[clamp(0.95rem,1.7vw,1.45rem)] leading-snug text-bone">
+                      {segments.map((seg, j) =>
+                        seg.b ? <strong key={j} className="font-bold">{seg.t}</strong> : seg.t,
+                      )}
+                    </p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
+
+        <Reveal delay={120}>
+          <img
+            src="/img/emi-hola.webp"
+            alt="Emiberth García sonriendo, sentada en una silla"
+            width="683"
+            height="1500"
+            loading="lazy"
+            className="mx-auto block h-auto w-[min(74%,380px)] lg:ml-auto lg:w-full lg:max-w-[460px]"
+          />
+        </Reveal>
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function Reveal({ children, delay = 0 }) {
+export default function Reveal({ children, delay = 0, className = '' }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Reveal({ children, delay = 0 }) {
   }, [])
 
   return (
-    <div ref={ref} className="reveal" style={{ '--reveal-delay': `${delay}ms` }}>
+    <div ref={ref} className={`reveal ${className}`.trim()} style={{ '--reveal-delay': `${delay}ms` }}>
       {children}
     </div>
   )

@@ -3,51 +3,190 @@
  * Cambiá acá los datos y no hace falta tocar los componentes.
  *
  * Videos: poné los archivos en /public/videos y referenciá con
- * `/videos/nombre.mp4`. Cada trabajo puede tener uno o varios clips.
+ * `/videos/nombre.mp4`. El fotograma que se ve antes de reproducir sale de
+ * /public/posters con el mismo nombre (`nombre.jpg`).
  */
 
 export const persona = {
-  name: 'Emiberth Garcia',
-  initials: 'EG',
-  roles: ['Editora de video', 'Community manager', 'Creación de contenido'],
-  location: 'Buenos Aires, AR',
-  headline: ['Videos que se ven', 'hasta el final.'],
-  intro:
-    'Trabajo con marcas que necesitan publicar seguido y sin bajar la calidad. Guion, edición, publicación y los números de la semana siguiente.',
+  name: 'Emiberth García',
+  shortName: 'Emi García',
+  roles: ['Social Media Manager', 'Brand Content Manager', 'Community Manager', 'Video Editor'],
 }
 
-/**
- * Secciones del sitio. El timecode no es decoración: el portafolio se
- * recorre como un reel y el rail de la izquierda marca dónde estás.
- */
+/** Links de la barra superior, en orden. */
 export const sections = [
-  { id: 'inicio', tc: '00:00', label: 'Inicio' },
-  { id: 'trabajos', tc: '00:22', label: 'Trabajos' },
-  { id: 'sobre-mi', tc: '01:26', label: 'Sobre mí' },
-  { id: 'skills', tc: '01:52', label: 'Skills' },
-  { id: 'proceso', tc: '02:14', label: 'Proceso' },
-  { id: 'marcas', tc: '02:44', label: 'Marcas' },
-  { id: 'contacto', tc: '03:02', label: 'Contacto' },
+  { id: 'sobre-mi', label: 'Sobre mí' },
+  { id: 'servicios', label: 'Servicios' },
+  { id: 'trabajos', label: 'Trabajos' },
+  { id: 'proceso', label: 'Proceso' },
+  { id: 'marcas', label: 'Marcas' },
+  { id: 'contacto', label: 'Contacto' },
 ]
 
-/** Los componentes toman su timecode de acá para que no se desincronice del rail. */
-export function tcOf(id) {
-  return sections.find((section) => section.id === id)?.tc ?? '00:00'
+/**
+ * Cada viñeta es una lista de tramos: `b: true` los pone en negrita.
+ */
+export const about = {
+  greeting: '¡Hola!',
+  name: 'Soy Emi García',
+  bullets: [
+    [
+      { t: 'Estudiante de marketing y comercio electrónico en ' },
+      { t: 'Centro e-learning UTN BA.', b: true },
+    ],
+    [
+      { t: '1 año de experiencia', b: true },
+      {
+        t: ' trabajando en Agencia de marketing y freelance con marcas personales y comerciales de distintos rubros.',
+      },
+    ],
+    [
+      { t: 'Disfruto pensar ideas, transformar conceptos en contenido y ' },
+      { t: 'construir una comunicación con personalidad propia.', b: true },
+    ],
+  ],
 }
 
-/** ratio: '9:16' | '4:5' | '16:9' — se usa para filtrar y para el alto real de la card. */
-export const works = [
+export const services = [
+  'Estrategia de contenido',
+  'Concepto creativo para marcas',
+  'Creación de piezas visuales',
+  'Análisis y mejora de resultados',
+  'Gestión de redes sociales',
+  'Planificación de contenido',
+  'Edición de videos',
+]
+
+export const tools = [
+  { group: 'Edición y diseño', items: ['CapCut', 'Canva'] },
+  { group: 'Organización y planificación', items: ['Notion', 'Google Drive', 'Google Sheets'] },
+  { group: 'Análisis y programación de contenido', items: ['Metricool'] },
+  { group: 'Inteligencia artificial', items: ['ChatGPT', 'Claude', 'Gemini'] },
+]
+
+/**
+ * Casos de estudio, en el orden del portfolio.
+ *
+ * - `details`: el panel grande (Meta / Estrategia / Resultado). El rótulo puede
+ *   cambiar de un caso a otro (Prensaconeli usa "Enfoque").
+ * - `feed` y `stories`: capturas de Instagram. Si no hay, la fila no se muestra.
+ * - `ratio`: sólo si el video es horizontal ('16:9'); por defecto va en teléfono.
+ * - `videos`: los reels dentro de los teléfonos. Si no hay, los teléfonos no se
+ *   muestran. Para sumarlos, subí el mp4 a /public/videos y su fotograma a
+ *   /public/posters, y agregá la ruta acá.
+ */
+export const cases = [
+  {
+    id: 'flowen',
+    name: 'Flowen',
+    sector: 'Moda / indumentaria personalizada.',
+    role: 'Social media manager',
+    details: [
+      { label: 'Meta', text: 'posicionar a Flowen como una marca de personalización creativa.' },
+      {
+        label: 'Estrategia',
+        text: 'creé contenido en reels y carruseles mostrando procesos, antes y después, uso real de las prendas, texturas y testimonios de clientes.',
+      },
+      {
+        label: 'Resultado',
+        text: 'aumentaron los pedidos de remeras personalizadas de mascotas, tote bags y prendas para empresas, además de generar alianzas con pet shops.',
+      },
+    ],
+    feed: '/img/flowen-feed.webp',
+    stories: [
+      '/img/flowen-story-1.webp',
+      '/img/flowen-story-2.webp',
+      '/img/flowen-story-3.webp',
+      '/img/flowen-story-4.webp',
+    ],
+    // Falta el reel "Sobre" que aparece en el PDF: no está como mp4 en el proyecto.
+    videos: ['/videos/flowen-1.mp4', '/videos/flowen-2.mp4', '/videos/flowen-3.mp4'],
+  },
+  {
+    id: 'qi',
+    name: 'Qi',
+    sector: 'Salud & Bienestar',
+    role: 'Community Manager & Content Creator',
+    details: [
+      {
+        label: 'Meta',
+        text: 'Dar a conocer la oxigenación hiperbárica, aumentar las consultas y lograr una mayor ocupación de agenda en una de las sedes.',
+      },
+      {
+        label: 'Estrategia',
+        text: 'Creé principalmente reels educativos para explicar sus beneficios, usos complementarios y responder dudas recurrentes de forma clara, cercana y fácil de entender.',
+      },
+      {
+        label: 'Resultado',
+        text: 'la cuenta creció con éxito de 4K a 7K seguidores, aumentaron las consultas para reserva por WhatsApp y se llenó la agenda de sesiones en ambas sedes.',
+      },
+    ],
+    videos: ['/videos/qi-1.mp4', '/videos/qi-2.mp4', '/videos/qi-3.mp4', '/videos/qi-4.mp4'],
+  },
+  {
+    id: 'prensaconeli',
+    name: 'Prensaconeli',
+    sector: 'Comunicación, prensa y relaciones públicas.',
+    role: 'Content Creator & Video Editor',
+    details: [
+      {
+        label: 'Meta',
+        text: 'Reactivar sus redes sociales y volver a mostrar de forma constante su trabajo y experiencia en prensa.',
+      },
+      {
+        label: 'Enfoque',
+        text: 'Desarrollé la parte creativa del contenido: ideas, grabación, edición de videos y creación de copys.',
+      },
+      {
+        label: 'Resultado',
+        text: 'Se reactivó la comunidad, aumentaron las consultas y las ventas, y el contenido comenzó a generar interés incluso por quién estaba detrás de la creación de sus redes.',
+      },
+    ],
+    videos: [
+      '/videos/prensaconeli-afw.mp4',
+      '/videos/prensaconeli-eliana-ramirez.mp4',
+      '/videos/prensaconeli-mx.mp4',
+      '/videos/prensaconeli-mx-con-eliana.mp4',
+    ],
+  },
+  {
+    id: 'holistic-marketing',
+    name: 'Holisstic marketing',
+    sector: 'Marketing integral para marcas',
+    role: 'Social Media Manager',
+    details: [
+      {
+        label: 'Meta',
+        text: 'Transmitir con claridad el mensaje de la marca y atraer nuevos clientes.',
+      },
+      {
+        label: 'Estrategia',
+        text: 'Realicé análisis de marca, definición de pilares y planificación de contenido para ordenar la comunicación y facilitar la creación constante de piezas alineadas a sus objetivos.',
+      },
+      {
+        label: 'Resultado',
+        text: 'El contenido empezó a atraer personas con las problemáticas que la marca buscaba abordar y ayudó a cerrar nuevos clientes.',
+      },
+    ],
+    videos: [
+      '/videos/holisstic-1.mp4',
+      '/videos/holisstic-2.mp4',
+      '/videos/holisstic-3.mp4',
+    ],
+  },
+  // Estos tres no estaban en el PDF. Los textos salen de las descripciones que ya
+  // tenían: faltan Meta y Resultado (sumalos a `details` cuando tengas los datos).
   {
     id: 'victoria-cipolla',
-    title: 'Contenido personal',
-    client: 'Victoria Cipolla',
-    ratio: '9:16',
-    year: '2025',
-    role: 'Edición · Color · Sonido',
-    runtime: 'Reels',
-    metric: '4 piezas',
-    note: 'Serie de reels con ritmo rápido y subtítulos quemados. Cuatro piezas con el mismo look pero distinto hook.',
-    hue: 298,
+    name: 'Victoria Cipolla',
+    sector: 'Marca personal',
+    role: 'Video Editor · Edición, color y sonido',
+    details: [
+      {
+        label: 'Enfoque',
+        text: 'Serie de reels con ritmo rápido y subtítulos quemados. Cuatro piezas con el mismo look pero distinto hook.',
+      },
+    ],
     videos: [
       '/videos/victoria-cipolla-1.mp4',
       '/videos/victoria-cipolla-2.mp4',
@@ -56,65 +195,32 @@ export const works = [
     ],
   },
   {
-    id: 'qi',
-    title: 'Campaña de marca',
-    client: 'Qi',
-    ratio: '9:16',
-    year: '2025',
-    role: 'Edición · Motion · Subtítulos',
-    runtime: 'Reels',
-    metric: '4 piezas',
-    note: 'Cuatro piezas verticales para feed y stories. Mismo universo visual, distintos remates para testear retención.',
-    hue: 264,
-    videos: [
-      '/videos/qi-1.mp4',
-      '/videos/qi-2.mp4',
-      '/videos/qi-3.mp4',
-      '/videos/qi-4.mp4',
+    id: 'astropay-valeria',
+    name: 'AstroPay',
+    sector: 'Fintech / medios de pago',
+    role: 'Video Editor · Edición y subtítulos',
+    details: [
+      {
+        label: 'Enfoque',
+        text: 'Reel de marca con foco en retención en los primeros tres segundos.',
+      },
     ],
-  },
-  {
-    id: 'flowen',
-    title: 'Contenido orgánico',
-    client: 'Flowen',
-    ratio: '9:16',
-    year: '2025',
-    role: 'Edición · Community',
-    runtime: 'Reels',
-    metric: '3 piezas',
-    note: 'Tres reels con grabación en celular. El corte sigue el audio, no al revés.',
-    hue: 42,
-    videos: [
-      '/videos/flowen-1.mp4',
-      '/videos/flowen-2.mp4',
-      '/videos/flowen-3.mp4',
-    ],
+    videos: ['/videos/astropay-valeria.mp4'],
   },
   {
     id: 'la-rural',
-    title: 'Expo Construcción',
-    client: 'La Rural',
+    name: 'La Rural',
+    sector: 'Eventos y expos',
+    role: 'Video Editor · Edición, sonido y color',
+    // '16:9' muestra el video en una pantalla horizontal en vez de un teléfono.
     ratio: '16:9',
-    year: '2024',
-    role: 'Edición · Sonido · Color',
-    runtime: 'Aftermovie',
-    metric: 'Pieza institucional',
-    note: 'Aftermovie de la expo. Material de un día entero condensado en una pieza horizontal para web y presentaciones.',
-    hue: 22,
+    details: [
+      {
+        label: 'Enfoque',
+        text: 'Aftermovie de la expo. Material de un día entero condensado en una pieza horizontal para web y presentaciones.',
+      },
+    ],
     videos: ['/videos/la-rural-expo-construccion.mp4'],
-  },
-  {
-    id: 'astropay-valeria',
-    title: 'Campaña de marca',
-    client: 'AstroPay',
-    ratio: '9:16',
-    year: '2025',
-    role: 'Edición · Subtítulos',
-    runtime: 'Reel',
-    metric: '1 pieza',
-    note: 'Reel de marca con foco en retención en los primeros tres segundos.',
-    hue: 30,
-    videos: ['/videos/astropay-valeria.mp4'],
   },
 ]
 
@@ -151,38 +257,6 @@ export const process = [
 export const processClosing =
   'Un proceso claro, organizado y colaborativo para convertir tu material en contenido que represente a tu marca.'
 
-export const about = {
-  photo: '/emi.jpeg',
-  title: 'Hola, soy Emi.',
-  lead: 'Community Manager y editora de video, con una mirada creativa, estratégica y analítica.',
-  paragraphs: [
-    'Me especializo en transformar ideas en contenido claro, dinámico y alineado con la identidad de cada marca. Disfruto especialmente la edición de Reels, el storytelling, la planificación de contenido y el análisis de lo que puede funcionar mejor en redes.',
-    'Mi forma de trabajar combina creatividad, organización y cercanía, para que cada proyecto no solo se vea bien, sino que también comunique con intención.',
-  ],
-}
-
-export const skills = [
-  'Edición de videos para Reels, TikTok y YouTube Shorts.',
-  'Storytelling aplicado a contenido.',
-  'Creación y búsqueda de ideas.',
-  'Planificación de contenido.',
-  'Community Management.',
-  'Análisis de Reels y perfiles.',
-  'Adaptación de contenido a distintas marcas.',
-  'Creación de carruseles e historias.',
-  'Organización de calendarios y entregas.',
-  'Interpretación básica de métricas.',
-  'Comunicación con clientes.',
-  'Uso de inteligencia artificial para agilizar procesos creativos.',
-]
-
-export const tools = [
-  { group: 'Edición y diseño', items: ['CapCut', 'Canva'] },
-  { group: 'Organización y planificación', items: ['Notion', 'Google Drive', 'Google Sheets'] },
-  { group: 'Análisis y programación de contenido', items: ['Metricool'] },
-  { group: 'Inteligencia artificial', items: ['ChatGPT', 'Claude', 'Gemini'] },
-]
-
 /**
  * Marcas. Los logos son PNG de un solo color (el crema `bone`) con fondo
  * transparente, para que todos se lean igual sobre el fondo oscuro.
@@ -198,14 +272,14 @@ export const clients = [
   { name: 'MX+', logo: '/logos/mx-mas.png' },
   { name: 'Construcciones Livianas', logo: '/logos/construcciones-livianas.png' },
   { name: 'Referentes con Impacto', logo: '/logos/referentes-con-impacto.png' },
-  { name: 'Holis8tic Marketing', logo: '/logos/holistic-marketing.png' },
+  { name: 'Holisstic Marketing', logo: '/logos/holistic-marketing.png' },
 ]
 
 export const contact = {
   email: 'emiberthgarcia@gmail.com',
   whatsapp: '+54 11 3795 3417',
   whatsappUrl: 'https://wa.me/5491137953417',
-  closing: 'Contame qué querés publicar y te digo cómo lo haría.',
+  tagline: 'Convirtamos tus ideas en contenido que conecte y genere resultados.',
 }
 
 /**
@@ -215,19 +289,4 @@ export const contact = {
 export function posterFor(src) {
   if (!src) return undefined
   return src.replace('/videos/', '/posters/').replace(/\.mp4$/, '.jpg')
-}
-
-/**
- * Clips para el reel del hero, en orden.
- * El monitor del hero es vertical: un 16:9 ahí queda tan chico que no se ve nada,
- * así que los horizontales sólo viven en la sección de trabajos.
- */
-export function getReelItems(worksList = works) {
-  return worksList.filter((work) => work.ratio !== '16:9').flatMap((work) => {
-    const clips = work.videos?.length ? work.videos : work.video ? [work.video] : []
-    if (clips.length === 0) {
-      return [{ work, src: null, clipIndex: 0 }]
-    }
-    return clips.map((src, clipIndex) => ({ work, src, clipIndex }))
-  })
 }

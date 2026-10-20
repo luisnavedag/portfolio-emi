@@ -1,15 +1,11 @@
 import { useEffect, useRef } from 'react'
-import Frame from './Frame'
 
 /**
  * Reproduce un clip. Mientras está quieto no baja un solo byte de video:
  * se ve el poster y el archivo se pide recién cuando hay que reproducir.
- * Si no hay `src`, cae al fotograma generado (misma API que Frame).
  */
 export default function VideoClip({
   src,
-  hue = 30,
-  index = 0,
   alt = '',
   playing = false,
   muted = true,
@@ -29,7 +25,9 @@ export default function VideoClip({
     if (playing) {
       // play() dispara la descarga por sí solo, incluso con preload="none".
       // Si el navegador bloquea el audio, al menos que se vea el video.
-      video.play().catch(() => {
+      // Un AbortError es un pause() que llegó antes: no hay que reintentar.
+      video.play().catch((error) => {
+        if (error.name !== 'NotAllowedError') return
         video.muted = true
         video.play().catch(() => {})
       })
@@ -47,9 +45,7 @@ export default function VideoClip({
     return () => video.removeEventListener('timeupdate', report)
   }, [src, onTimeUpdate])
 
-  if (!src) {
-    return <Frame hue={hue} index={index} alt={alt} />
-  }
+  if (!src) return null
 
   return (
     <video

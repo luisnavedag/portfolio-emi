@@ -1,17 +1,16 @@
 import Reveal from './Reveal'
 
-export default function SectionHeader({ tc, label, title, lead, children }) {
+export default function SectionHeader({ title, lead }) {
   return (
-    <header className="mb-14 max-w-2xl sm:mb-20">
+    <header className="mb-12 max-w-3xl sm:mb-16">
       <Reveal>
-        <p className="font-mono text-[11px] tracking-[0.16em] text-amber uppercase">{tc}</p>
-        <p className="mt-2 font-mono text-[10px] tracking-[0.14em] text-muted uppercase">{label}</p>
-        <h2 className="mt-5 font-display text-[clamp(2rem,5vw,3.2rem)] leading-[1.05] font-extrabold tracking-[-0.03em] text-bone">
+        <h2 className="font-display text-[clamp(2.2rem,5vw,4.2rem)] leading-[0.98] text-bone">
           {title}
         </h2>
-        <p className="mt-5 text-[16px] leading-relaxed text-bone/65">{lead}</p>
+        {lead && (
+          <p className="mt-6 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed text-bone/75">{lead}</p>
+        )}
       </Reveal>
-      {children}
     </header>
   )
 }
